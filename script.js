@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	//what does this do?
+	//This convert the number to face cards
 	function convert_value_to_string(value) {
 		if (value > 10) {
 			switch (value) {
@@ -19,6 +20,7 @@ $(document).ready(function() {
 	}
 
 	//what does this do?
+	//this creates a deck of cards.  each card is a number and a string hearts, diamonds spades and clubs
 	var deck = [];
 	var suits = ['hearts', 'diamonds', 'spades', 'clubs'];
 	for (var i = 0; i<suits.length; i++) {
@@ -30,14 +32,24 @@ $(document).ready(function() {
 	
 	//shuffle the deck
 	
+
+	var shuffled_deck = _.shuffle(deck);
 	
 	var cards_player_1 = [];
 	var cards_player_2 = [];
 	//divide out the cards into the two arrays
+	cards_player_1 = shuffled_deck.slice(0,26);
+	cards_player_2 = shuffled_deck.slice(26);
 	
-	
+
 	//create a function (algorithm) called "war" that takes two cards as parameters, compares them and returns a winner. A tie should return false.
-	function war() {
+	function war(card_1,card_2) {
+          if (card_1.number > card_2.number){
+          	return true;
+          } else {
+          	return false;
+          }
+
 	}
 	
 	
@@ -45,6 +57,18 @@ $(document).ready(function() {
 		//compare the cards
 		//give the winner both cards (at end of deck)
 	function play() {
+		var card_1 = cards_player_1[0];
+		var card_2 = cards_player_2[0];
+		var outcome = war(card_1,card_2);
+		if (outcome ==false){
+			cards_player_2.push(card_1);
+			cards_player_2.push(card_2);
+			cards_player_1.slice(0,0);
+		}else{
+			cards_player_1.push(card_1);
+			cards_player_1.push(card_2);
+			cards_player_2.push(0,0);
+		}
 		
 		//this function (defined below) will continue to the next turn
 		advance();
